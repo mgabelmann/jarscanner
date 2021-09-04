@@ -87,10 +87,12 @@ public class JarProcessor implements Runnable {
             for (String line; (line = br.readLine()) != null;) {
                 //FIXME: there should be a better way to do this with REGEX
 
-                if (line.startsWith("Specification-Version: ")) {
+                /*if (line.startsWith("Specification-Version: ")) {
                     return line.replace("Specification-Version: ", "");
 
-                } else if (line.startsWith("Implementation-Version: ")) {
+                } else */
+
+                if (line.startsWith("Implementation-Version: ")) {
                     //some spring libs use this
                     return line.replace("Implementation-Version: ", "");
 
