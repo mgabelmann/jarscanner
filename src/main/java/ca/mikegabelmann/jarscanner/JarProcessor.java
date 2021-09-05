@@ -20,6 +20,10 @@ public class JarProcessor implements Runnable {
     private static final String FILENAME_MANIFEST = "MANIFEST.MF";
     private static final String FILENAME_POM = "pom.xml";
 
+    private static final String REGEX1 = "Implementation-Version: ";
+    private static final String REGEX2 = "Verison: ";
+    private static final String REGEX3 = "Bundle-Version: ";
+
     private Path file;
     private String version = null;
 
@@ -87,15 +91,15 @@ public class JarProcessor implements Runnable {
             for (String line; (line = br.readLine()) != null;) {
                 //FIXME: there should be a better way to do this with REGEX
 
-                if (line.startsWith("Implementation-Version: ")) {
+                if (line.startsWith(REGEX1)) {
                     //some spring libs use this
-                    return line.replace("Implementation-Version: ", "");
+                    return line.replace(REGEX1, "");
 
-                } else if (line.startsWith("Verison: ")) {
-                    return line.replace("Version: ", "");
+                } else if (line.startsWith(REGEX2)) {
+                    return line.replace(REGEX2, "");
 
-                } else if (line.startsWith("Bundle-Version: ")) {
-                    return line.replace("Bundle-Version: ", "");
+                } else if (line.startsWith(REGEX3)) {
+                    return line.replace(REGEX3, "");
                 }
             }
         }
