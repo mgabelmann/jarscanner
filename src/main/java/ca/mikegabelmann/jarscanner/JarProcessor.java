@@ -17,6 +17,7 @@ import java.util.zip.ZipFile;
  */
 public class JarProcessor implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger(JarProcessor.class);
+
     private static final String FILENAME_MANIFEST = "MANIFEST.MF";
     private static final String FILENAME_POM = "pom.xml";
 
@@ -24,7 +25,7 @@ public class JarProcessor implements Runnable {
     private static final String REGEX2 = "Verison: ";
     private static final String REGEX3 = "Bundle-Version: ";
 
-    private Path file;
+    private final Path file;
     private String version = null;
 
 
@@ -117,10 +118,13 @@ public class JarProcessor implements Runnable {
     private String processPom(final ZipFile zf, final ZipEntry ze) throws IOException {
         LOGGER.trace("processing  pom {}", zf.getName());
 
+        //FIXME: it would be better to read the xml file and then process it as some maven projects have parents with a version set
+
         //try with resources which will be closed automatically
         try (BufferedReader br = new BufferedReader(new InputStreamReader(zf.getInputStream(ze)))) {
             for (String line; (line = br.readLine()) != null;) {
                 if (line.contains("<version>")) {
+                    //strip whitespace, <version>, </version> tags from line
                     return line.replaceAll("\\s", "").replaceAll("<[/]?version>", "");
                 }
             }
