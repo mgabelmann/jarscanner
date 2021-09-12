@@ -22,10 +22,16 @@ public class JarProcessor implements Runnable {
     private static final String FILENAME_POM = "pom.xml";
 
     private static final String REGEX1 = "Implementation-Version: ";
-    private static final String REGEX2 = "Verison: ";
+    private static final String REGEX2 = "Version: ";
     private static final String REGEX3 = "Bundle-Version: ";
+    private static final String REGEX4 = "<version>";
+    private static final String REGEX5 = "\\s";
+    private static final String REGEX6 = "<[/]?version>";
+
+    private static final String BLANK = "";
 
     private final Path file;
+
     private String version = null;
 
 
@@ -66,15 +72,27 @@ public class JarProcessor implements Runnable {
             zf.close();
 
             if (version != null) {
-                LOGGER.info("{}={}, version={}", ft, zf.getName(), version);
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.info("{}={}, version={}", ft, zf.getName(), version);
+                }
 
             } else {
-                LOGGER.warn("{}={}, version not found", ft, zf.getName());
+                if (LOGGER.isWarnEnabled()) {
+                    LOGGER.warn("{}={}, version not found", ft, zf.getName());
+                }
             }
 
         } catch (IOException e) {
             LOGGER.error(e);
         }
+    }
+
+    /**
+     * Get version.
+     * @return version
+     */
+    public String getVersion() {
+        return version;
     }
 
     /**
@@ -85,7 +103,9 @@ public class JarProcessor implements Runnable {
      * @throws IOException error
      */
     private String processManifest(final ZipFile zf, final ZipEntry ze) throws IOException {
-        LOGGER.trace("processing  manifest {}", zf.getName());
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("processing  manifest {}", zf.getName());
+        }
 
         //try with resources which will be closed automatically
         try (BufferedReader br = new BufferedReader(new InputStreamReader(zf.getInputStream(ze)))) {
@@ -94,13 +114,13 @@ public class JarProcessor implements Runnable {
 
                 if (line.startsWith(REGEX1)) {
                     //some spring libs use this
-                    return line.replace(REGEX1, "");
+                    return line.replace(REGEX1, BLANK);
 
                 } else if (line.startsWith(REGEX2)) {
-                    return line.replace(REGEX2, "");
+                    return line.replace(REGEX2, BLANK);    //NOT found in maven repo so far
 
                 } else if (line.startsWith(REGEX3)) {
-                    return line.replace(REGEX3, "");
+                    return line.replace(REGEX3, BLANK);
                 }
             }
         }
@@ -123,9 +143,9 @@ public class JarProcessor implements Runnable {
         //try with resources which will be closed automatically
         try (BufferedReader br = new BufferedReader(new InputStreamReader(zf.getInputStream(ze)))) {
             for (String line; (line = br.readLine()) != null;) {
-                if (line.contains("<version>")) {
+                if (line.contains(REGEX4)) {
                     //strip whitespace, <version>, </version> tags from line
-                    return line.replaceAll("\\s", "").replaceAll("<[/]?version>", "");
+                    return line.replaceAll(REGEX5, BLANK).replaceAll(REGEX6, BLANK);
                 }
             }
         }
