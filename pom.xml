@@ -9,11 +9,13 @@
     <version>0.9.1</version>
 
     <distributionManagement>
+        <!--
         <repository>
             <id>github</id>
             <name>GitHub Michael Gabelmann Repository</name>
             <url>https://maven.pkg.github.com/mgabelmann/repository/</url>
         </repository>
+        -->
         <!--
         <snapshotRepository>
             <id>github-snapshot</id>
