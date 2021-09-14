@@ -9,10 +9,16 @@
     <version>0.9.1-SNAPSHOT</version>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>github-snapshot</id>
+            <name>GitHub Michael Gabelmann snapshot repository</name>
+            <url>https://maven.pkg.github.com/mgabelmann/repository/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
         <repository>
-            <id>github</id>
-            <name>GitHub Michael Gabelmann Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/mgabelmann</url>
+            <id>github-release</id>
+            <name>GitHub Michael Gabelmann repository</name>
+            <url>https://maven.pkg.github.com/mgabelmann/repository/</url>
         </repository>
     </distributionManagement>
 
