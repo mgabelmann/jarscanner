@@ -9,13 +9,13 @@
     <version>0.9.1</version>
 
     <distributionManagement>
-        <!--
+
         <repository>
             <id>github</id>
             <name>GitHub Michael Gabelmann Repository</name>
-            <url>https://maven.pkg.github.com/mgabelmann/repository/</url>
+            <url>https://maven.pkg.github.com/mgabelmann/jarscanner</url>
         </repository>
-        -->
+
         <!--
         <snapshotRepository>
             <id>github-snapshot</id>
