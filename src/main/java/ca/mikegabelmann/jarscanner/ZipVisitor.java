@@ -37,15 +37,17 @@ public class ZipVisitor extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (file.toString().endsWith(".jar")) {
-            LOGGER.debug("{} is being processed", file.getFileName());
+        String filename = file.getFileName().toString();
 
+        if (filename.endsWith("sources.jar")) {
+            LOGGER.debug("{}, is sources jar - skipped", file);
+
+        } else if (filename.endsWith(".jar")) {
+            LOGGER.debug("{} is being processed", filename);
             service.execute(new JarProcessor(file));
 
-            return FileVisitResult.CONTINUE;
-
         } else {
-            LOGGER.info("{}, is not a jar - skipped", file);
+            LOGGER.debug("{}, is not a jar - skipped", filename);
         }
 
         return super.visitFile(file, attrs);
