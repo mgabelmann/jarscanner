@@ -6,7 +6,15 @@
 
     <groupId>ca.mikegabelmann</groupId>
     <artifactId>jarscanner</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.9</version>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Michael Gabelmann Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/mgabelmann/repository</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
