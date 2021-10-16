@@ -4,32 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>ca.mikegabelmann.maven</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>ca.mikegabelmann</groupId>
     <artifactId>jarscanner</artifactId>
     <version>0.9.1</version>
+    <packaging>jar</packaging>
 
-    <distributionManagement>
-
-        <repository>
-            <id>github</id>
-            <name>GitHub Michael Gabelmann Repository</name>
-            <url>https://maven.pkg.github.com/mgabelmann/jarscanner</url>
-        </repository>
-
-        <!--
-        <snapshotRepository>
-            <id>github-snapshot</id>
-            <name>GitHub Michael Gabelmann snapshot repository</name>
-            <url>https://maven.pkg.github.com/mgabelmann/repository/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-        <repository>
-            <id>github-release</id>
-            <name>GitHub Michael Gabelmann repository</name>
-            <url>https://maven.pkg.github.com/mgabelmann/repository/</url>
-        </repository>
-        -->
-    </distributionManagement>
+    <name>Jar Scanner</name>
+    <description>Scans JAR files to find the version of the artifact. It </description>
 
     <scm>
         <connection>scm:git:https://github.com/mgabelmann/jarscanner.git</connection>
@@ -38,22 +25,24 @@
     </scm>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     </properties>
 
     <dependencies>
+        <!-- logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.13.3</version>
+            <version>${log4j.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.13.3</version>
+            <version>${log4j.version}</version>
+            <scope>runtime</scope>
         </dependency>
+
     </dependencies>
+
 </project>
