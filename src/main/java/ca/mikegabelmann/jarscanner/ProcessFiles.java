@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 /**
  *
  * @author mgabelmann
@@ -49,7 +50,7 @@ public class ProcessFiles {
      * @param args command line arguments
      * @throws Exception error
      */
-    public final static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         if (args.length != 1) {
             throw new IllegalArgumentException("A directory is required");
         }

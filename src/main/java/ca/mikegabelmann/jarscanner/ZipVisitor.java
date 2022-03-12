@@ -10,6 +10,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.ExecutorService;
 
+
 /**
  *
  * @author mgabelmann
@@ -17,14 +18,14 @@ import java.util.concurrent.ExecutorService;
 public class ZipVisitor extends SimpleFileVisitor<Path> {
     private static final Logger LOGGER = LogManager.getLogger(ZipVisitor.class);
 
-    private ExecutorService service;
+    private final ExecutorService service;
 
 
     /**
      * Constructor.
      * @param service service
      */
-    public ZipVisitor(ExecutorService service) {
+    public ZipVisitor(final ExecutorService service) {
         this.service = service;
     }
 
